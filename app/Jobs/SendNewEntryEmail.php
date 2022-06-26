@@ -32,7 +32,7 @@ class SendNewEntryEmail implements ShouldQueue
      */
     public function handle()
     {
-        $recepients = User::all()->pluck('email');
+        $recepients = User::permission('entries_view')->get()->pluck('email');
         return Mail::to($recepients)->send(new SurveyNewEntry($this->survey));
 
     }

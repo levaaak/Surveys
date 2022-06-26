@@ -14,5 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/users', 'UserController');
+Route::resource('/surveys', 'SurveyController');
+Route::resource('/questions', 'QuestionController');
+Route::resource('/answers', 'AnswerController');
+Route::resource('/entries', 'EntryController');
+Route::post('/fillSurvey', 'AnswerController@fill')->name('fillSurvey');
+Route::get('/thankYou', 'SurveyController@thankYou')->name('thankYou');
+Route::get('/fill/{survey_id}', 'SurveyController@fill');

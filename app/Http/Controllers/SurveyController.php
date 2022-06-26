@@ -55,6 +55,31 @@ class SurveyController extends Controller
             'owner_id'=>Auth::user()->id,
         ]);
         $survey->save();
+        if($request->get('addDefaultQuestions') == 'on'){
+            $name = new Question([
+                'survey_id'=>$survey->id,
+                'type'=>'string',
+                'content'=>'Imię i nazwisko',
+                'required'=>1
+            ]);
+            $name->save();
+
+            $email = new Question([
+                'survey_id'=>$survey->id,
+                'type'=>'email',
+                'content'=>'Email',
+                'required'=>1
+            ]);
+            $email->save();
+
+            $phone = new Question([
+                'survey_id'=>$survey->id,
+                'type'=>'number',
+                'content'=>'Numer telefonu',
+                'required'=>1
+            ]);
+            $phone->save();
+        }
         return redirect('/home')->with('success', 'Survey Has been added.');
     }
 
@@ -103,6 +128,7 @@ class SurveyController extends Controller
         $survey->status = 1;
         $survey->owner_id = Auth::user()->id;
         $survey->save();
+
 
         return redirect('/surveys/show/'.$survey->id);
     }

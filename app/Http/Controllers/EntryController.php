@@ -19,7 +19,7 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $entries = Entry::paginate(10);
+        $entries = Entry::orderBy('created_at', 'desc')->paginate(10);
         return view('entries.index', ['entries'=>$entries]);
     }
 
@@ -80,7 +80,14 @@ class EntryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $entry = Entry::find($id);
+       if($entry->status != 'closed'){
+           $entry->status = 'closed';
+           $entry->save();
+           return redirect('/entries');
+       } else{
+           return redirect('/entries')->with('error', 'This entry is already closed.');
+       }
     }
 
     /**

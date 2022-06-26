@@ -98,20 +98,19 @@ class AnswerController extends Controller
         ]);
         $entry->save();
         $survey = Survey::where('id',$request->get('survey_id'))->first();
-        SendNewEntryEmail::dispatch($survey);
+
 
         foreach ($request->questions as $key=>$question) {
-            $answer = new Answer([
-                'entry_id' => $entry->id,
-                'survey_id' =>$request->get('survey_id'),
-                'question_id' => $question,
-                'value' => $request->answer[$key]
-            ]);
-            $answer->save();
-        }
 
-
-
+                $answer = new Answer([
+                    'entry_id' => $entry->id,
+                    'survey_id' =>$request->get('survey_id'),
+                    'question_id' => $question,
+                    'value' => $request->answer[$key]
+                ]);
+                $answer->save();
+            }
+        SendNewEntryEmail::dispatch($survey);
         return redirect('/thankYou');
     }
 }

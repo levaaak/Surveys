@@ -8,7 +8,8 @@ class Entry extends Model
 {
     protected $table='entries';
     protected $fillable=[
-        'survey_id'
+        'survey_id',
+        'status'
     ];
     public function survey(){
         $survey = Survey::find($this->survey_id);

@@ -51,8 +51,7 @@
                            <ul class="navbar-nav mr-auto">
                                <a class="nav-link @if(Route::current()->getName() == 'surveys.index') selected @endif" href="{{route('surveys.index')}}">{{ __('Surveys') }}</a>
                                <a class="nav-link @if(Route::current()->getName() == 'entries.index') selected @endif" href="{{route('entries.index')}}">{{ __('Entries') }}</a>
-                               <a class="nav-link @if(Route::current()->getName() == 'questions.index') selected @endif" href="{{route('questions.index')}}">{{ __('Questions') }}</a>
-                               <a class="nav-link @if(Route::current()->getName() == 'users.index') selected @endif" href="{{route('users.index')}}">{{ __('Users') }}</a>
+                               @role('admin')<a class="nav-link @if(Route::current()->getName() == 'users.index') selected @endif" href="{{route('users.index')}}">{{ __('Users') }}</a>@endrole
 
                            </ul>
                        @endif

@@ -2,7 +2,7 @@
 # Hello!
 
 There's a new survey to proceed. Please take a look at it. <br>
-Survey's the details:
+Survey's details:
 <br>
 Survey ID: <b>{{$survey['id']}}</b><br>
 Survey title: <b>{{$survey['title']}}</b><br>
