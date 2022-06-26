@@ -26,10 +26,7 @@
                             <option value="string">{{__('Short text')}}</option>
                             <option value="longText">{{__('Long text')}}</option>
                             <option value="date">{{__('Date')}}</option>
-                            <option value="file">{{__('File')}}</option>
                             <option value="email">{{__('Email')}}</option>
-                            <option value="select">{{__('Option list')}}</option>
-
                         </select>
                     </div>
                 </div>

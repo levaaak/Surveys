@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\newUser;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -28,7 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+       return view('users.create');
+
     }
 
     /**
@@ -39,7 +44,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required|numeric|min:9'
+        ]);
+
+        $user = new User([
+                'name'=> $request->get('name'),
+                'email'=>$request->get('email'),
+                'number'=>$request->get('phone'),
+                'password'=>Hash::make($request->get('email'))
+        ]);
+        $user->save();
+        Mail::to($user->email)->send(new newUser($user));
+        return redirect('/users');
     }
 
     /**
@@ -61,7 +80,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit', ['user'=>$user]);
     }
 
     /**
@@ -73,7 +93,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if($user){
+            $request->validate([
+                'name'=>'required',
+                'email'=>'required|email',
+                'phone'=>'required|numeric|min:9'
+            ]);
+
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->number = $request->get('phone');
+
+            $user->save();
+
+            return redirect('/users');
+        } else{
+            return  redirect('/users');
+        }
     }
 
     /**

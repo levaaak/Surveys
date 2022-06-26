@@ -130,7 +130,7 @@ class SurveyController extends Controller
         $survey->save();
 
 
-        return redirect('/surveys/show/'.$survey->id);
+        return redirect('/surveys/'.$survey->id);
     }
 
     /**
